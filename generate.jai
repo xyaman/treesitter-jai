@@ -29,6 +29,10 @@ clone_and_compile_treesitter :: () -> success := false, error := "" {
         if run_command("make", "-C", TS_REPO_PATH).exit_code != 0 {
             return error = "Failed to compile treesitter.";
         }
+
+        output_dir := "linux/x64";
+        recreate_directory(output_dir);
+        copy_file(tprint("%/libtree-sitter.a", TS_REPO_PATH), tprint("%/libtree-sitter.a", output_dir));
     }
 
     #if OS == .WINDOWS && CPU == .X64 {
@@ -98,7 +102,7 @@ clone_and_compile_treesitter :: () -> success := false, error := "" {
         array_add(*opts.libraries, .{filename = "tree-sitter_static", identifier = "libtreesitter"});
     }
 
-    opts.generate_library_declarations = true;
+    opts.generate_library_declarations = false;
 
     array_add(*opts.include_paths, tprint("%/lib/include/tree_sitter", TS_REPO_PATH));
     array_add(*opts.source_files, "api.h");

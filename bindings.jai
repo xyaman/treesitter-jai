@@ -1300,7 +1300,6 @@ ts_set_allocator :: (new_malloc: #type (unknown0: u64) -> *void #c_call, new_cal
 
 #import "Basic"; // For assert
 
-libtreesitter :: #library,no_dll "windows/x64/tree-sitter_static";
 
 #run {
     {
